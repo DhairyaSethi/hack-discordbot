@@ -1,0 +1,33 @@
+{
+  "name": "hack-discordbot",
+  "version": "1.0.0",
+  "description": "An all in one discord bot for organising your hackathon.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DhairyaSethi/hack-discordbot.git"
+  },
+  "keywords": [
+    "discord",
+    "discordjs",
+    "hackathon"
+  ],
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "dotenv": "^8.2.0",
+    "google-spreadsheet": "^3.0.13",
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0"
+  },
+  "author": "DhairyaSethi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DhairyaSethi/hack-discordbot/issues"
+  },
+  "homepage": "https://github.com/DhairyaSethi/hack-discordbot#readme"
+}

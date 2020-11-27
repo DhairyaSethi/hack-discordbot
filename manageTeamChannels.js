@@ -139,17 +139,6 @@ client.on('ready', async () => {
 		.setTitle(`Mentor Allocation Form`)
 		.setURL('https://bit.ly/idea_mentoring')
 		.setThumbnail('https://i.imgur.com/R4B1q3U.png')
-		.setDescription(
-			`**The following form is mandatory for each team.**
-    
-    As we believe, hackathons are all about briding the ideas viz mentoring.
-    We are here to help you get paired up with the right mentor for your project.
-    
-    As per the rules, if the team hasn't filled the form the project will not be considered for evaluation and prizes.
-    You are requested to fill the trailing form, so that, we could come up with the best combination possible and beneficial to you.
-    
-    Link: https://bit.ly/idea_mentoring`
-		)
 		.setTimestamp();
 
 	const toTBD = new Discord.MessageEmbed()
@@ -157,19 +146,6 @@ client.on('ready', async () => {
 		.setTitle(`Hey Team`)
 		.setURL('https://hackforshe.devfolio.co')
 		.setThumbnail('https://i.imgur.com/R4B1q3U.png')
-		.setDescription(
-			`**This team has been formed based on Responses on the form. Welcome!**
-
-    **Important:*** You are all requested to coordinate with each other and join a single team on devfolio.
-
-    If this is not done by the tomorrow, 19th November 11:50 PM, your submission would not be valid.
-
-    Once you have done this, kindly PM any of the <@768803391357976607> to update this channel's team name and our records.
-
-    You are then requested to **fill the mentor allocation form**.
-    
-    `
-		)
 		.setTimestamp();
 
     const spamAllChannelScript = async (toSendEmbed) => {
@@ -302,15 +278,7 @@ const script = async (name, memberId, row) => {
 		.setURL('https://discord.js.org/')
 		.setThumbnail('https://i.imgur.com/R4B1q3U.png')
 		.setDescription(
-			`Hope the festivities treated you well!
-    Its finally time to kick off this hack season.
-    
-    In case of any descrepancies, feel free to ask us in <#772060337574903828>.
-    If there is any teammate who has not been added to this channel do let us know on the above channel.
-    
-    Let the hacking begin!
-    
-    Following are how we are gonna proceed:`
+			``
 		)
 		.setTimestamp()
 		.addField(
@@ -318,39 +286,6 @@ const script = async (name, memberId, row) => {
 			`As our whole hackathon is hosted on Devfolio, make sure each member of your team is registered under same team on Devfolio and Discord Server. The ratio criteria will be verified on both the platforms, only then your team will be eligible for any benefits.`,
 			false
 		)
-		.addField(
-			'2.',
-			`Every team member has to be present on the Discord Server, for the evaluations and mentoring sessions.`,
-			false
-		)
-		.addField(
-			'3.',
-			`This thread is only visible to you and your team members, feel free to discuss over these text and voice channels. They are for your benefit only.`,
-			false
-		)
-		.addField(
-			'4.',
-			`Mentors will be dropping in your threads shortly, according to the tech stack you have filled in [this form](https://bit.ly/idea_mentoring). More on this in the subsequent message.`,
-			false
-		);
-
-	const toSend2 = new Discord.MessageEmbed()
-		.setColor('#FF0000')
-		.setTitle(`Mentor Allocation Form`)
-		.setURL('https://bit.ly/idea_mentoring')
-		.setThumbnail('https://i.imgur.com/R4B1q3U.png')
-		.setDescription(
-			`**The following form is mandatory for each team.**
-    
-    As we believe, hackathons are all about briding the ideas viz mentoring.
-    We are here to help you get paired up with the right mentor for your project.
-    
-    As per the rules, if the team hasn't filled the form the project will not be considered for evaluation and prizes.
-    You are requested to fill the trailing form, so that, we could come up with the best combination possible and beneficial to you.
-    
-    Link: https://bit.ly/idea_mentoring`
-		)
-		.setTimestamp();
 
 	const role = await guild.roles.create({
 		data: {
