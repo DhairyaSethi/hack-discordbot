@@ -19,7 +19,11 @@
   "dependencies": {
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
-    "google-spreadsheet": "^3.0.13",
+    "google-spreadsheet": "^3.0.13"
+  },
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.13.4"
   },
   "devDependencies": {
     "eslint": "^7.13.0"

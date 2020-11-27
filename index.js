@@ -10,12 +10,12 @@ const doc = new GoogleSpreadsheet(spreadsheetId);
 //not necessary, better for response time
 const SERVER_ID = '768521009253974028';
 const HACK_PENDING_ROLE = 'Hacker(Under Review)';
-const HACK_ACCEPTED_ROLE = 'Hacker(Eligible)'; 
-const MemeChannelId = '772085529713049600'; 
-const organiserRole = '768795745951416320'; 
+const HACK_ACCEPTED_ROLE = 'Hacker(Eligible)';
+const MemeChannelId = '772085529713049600';
+const organiserRole = '768795745951416320';
 
 //@required
-const emojiID = '776426491570683914'; 
+const emojiID = '776426491570683914';
 //global constants
 let memeSheet;
 let memeTopic = '';
@@ -28,7 +28,7 @@ let myGuild;
 
 const isNumber = n => {
 	return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
-}
+};
 
 client.once('ready', async () => {
 	console.log('[+] ready as ', client.user.tag);
@@ -46,9 +46,8 @@ client.once('ready', async () => {
 	try {
 		HackPendingId = myGuild.roles.cache.find(r => r.name === HACK_PENDING_ROLE)
 			.id;
-		HackAcceptedId = myGuild.roles.cache.find(
-			r => r.name === HACK_ACCEPTED_ROLE
-		).id;
+		HackAcceptedId = myGuild.roles.cache.find(r => r.name === HACK_ACCEPTED_ROLE)
+			.id;
 		console.log('[+] Found Role Ids', HackPendingId, HackAcceptedId);
 	} catch (err) {
 		console.log('[-] Couldnt get role IDs', err);
@@ -63,7 +62,7 @@ client.on('message', async message => {
 	if (message.attachments.size > 0 && message.channel.id === MemeChannelId)
 		return handleSubmission(message);
 	// if(message.author.id === '693149593097076739' && message.channel.id === '772413969225875476') message.react('✨')
-	if (message.content.includes('GG')) handleEaster(message, client, '✨');// redacted further easter eggs
+	if (message.content.includes('GG')) handleEaster(message, client, '✨'); // redacted further easter eggs
 
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -104,12 +103,9 @@ client.on('message', async message => {
 					'Please use the correct format: `!register <Full Name>, <Email Address>, <Team Name(optional)>`. \nNote the `,`(comma) is important.\nThere is no space(` `) between `!` and `register`.'
 				);
 
-			if (args[0].includes('register'))
-				args[0] = args[0].replace('register', '');
+			if (args[0].includes('register')) args[0] = args[0].replace('register', '');
 
-			if (
-				!args[1].match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)
-			) {
+			if (!args[1].match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)) {
 				message.delete({ timeout: 1000 });
 				message
 					.reply(
@@ -143,10 +139,7 @@ client.on('message', async message => {
 				// .catch(console.log);
 
 				message.member.setNickname(
-					`${args[0].trim()} ${args[2] ? '| ' + args[2].trim() : ''}`.slice(
-						0,
-						32
-					)
+					`${args[0].trim()} ${args[2] ? '| ' + args[2].trim() : ''}`.slice(0, 32)
 				);
 
 				console.log(`Registered ${data.DiscordTag}.`);
@@ -161,10 +154,7 @@ client.on('message', async message => {
 		}
 
 		case 'unregister': {
-			args = message.content
-				.replace(`${prefix}unregister`, '')
-				.trim()
-				.split(',');
+			args = message.content.replace(`${prefix}unregister`, '').trim().split(',');
 
 			if (message.channel.id !== RegisterChannelId)
 				return handleError(
@@ -238,16 +228,9 @@ client.on('message', async message => {
 						);
 					row['TeamName'] = args.trim();
 					row['Logs'] = `${row['Logs']} + ${message.content}`;
-					message.member.setNickname(
-						`${row.Name.trim()} | ${args}`.slice(0, 32)
-					);
+					message.member.setNickname(`${row.Name.trim()} | ${args}`.slice(0, 32));
 					await row.save();
-					console.log(
-						'Updated team ',
-						row['TeamName'],
-						'for',
-						message.author.tag
-					);
+					console.log('Updated team ', row['TeamName'], 'for', message.author.tag);
 					const dataNew = {
 						DiscordTag: message.author.tag,
 						DiscordId: message.author.id,
@@ -259,9 +242,7 @@ client.on('message', async message => {
 					};
 					await sheet.addRow(dataNew);
 					message.delete({ timeout: 2000 });
-					message
-						.reply('Successful!')
-						.then(msg => msg.delete({ timeout: 3000 }));
+					message.reply('Successful!').then(msg => msg.delete({ timeout: 3000 }));
 				}
 			} catch (err) {
 				handleError(
@@ -312,11 +293,7 @@ client.on('message', async message => {
 				await memeSheet.addRow(data);
 				message.react('🧇');
 			} catch (err) {
-				handleError(
-					'At start meme',
-					err,
-					'Oop. Please try again or contact mods.'
-				);
+				handleError('At start meme', err, 'Oop. Please try again or contact mods.');
 			}
 			break;
 		}
@@ -400,11 +377,7 @@ client.on('message', async message => {
 						.then(msg => msg.delete({ timeout: 3000 }));
 				}
 			} catch (err) {
-				handleError(
-					'At stop meme',
-					err,
-					'Oop. Please try again or contact mods.'
-				);
+				handleError('At stop meme', err, 'Oop. Please try again or contact mods.');
 			}
 
 			break;
@@ -531,9 +504,7 @@ client.on('message', async message => {
 				}
 
 				console.log(text);
-				message.reply(
-					`Successful ${text.join(' ')} of team number ${teamNumber}`
-				);
+				message.reply(`Successful ${text.join(' ')} of team number ${teamNumber}`);
 			} catch (err) {
 				handleError(
 					'Unable to update team' + err,
@@ -582,8 +553,8 @@ const handleError = (
 };
 
 const handleEaster = (message, client, emoji) => {
-    //function redacted
-    return message.react(emoji);
+	//function redacted
+	return message.react(emoji);
 };
 
 const handleSubmission = async message => {

@@ -27,8 +27,8 @@ client.on('ready', async () => {
 	console.log('ready as', client.user.tag);
 	guild = client.guilds.cache.get(SERVER_ID);
 
-    // cache all user data 
-    await guild.members.fetch();
+	// cache all user data
+	await guild.members.fetch();
 
 	await doc.useServiceAccountAuth(require('./config/oauth.json'));
 	await doc.loadInfo();
@@ -44,59 +44,69 @@ client.on('ready', async () => {
 
 	let current = { pos: '1', team: 'F maxxxx', roleId: '', lastCreated: '0' };
 
-	await Promise.all(final.map(async (val, itr) => {
-	    // const val = final[itr];
-	    console.log('on ', val['pos'], val['team'], val['name'])
-	    const name = ('Team ' + current.pos + ' - ' + current.team).slice(0, 32);
+	await Promise.all(
+		final.map(async (val, itr) => {
+			// const val = final[itr];
+			console.log('on ', val['pos'], val['team'], val['name']);
+			const name = ('Team ' + current.pos + ' - ' + current.team).slice(0, 32);
 
-	    //make channels for first team
-	    if(val['pos'].trim() === current.pos.trim() && current.roleId === '') {
-	        console.log('creating channels for ' + name)
-	        const {catId, textId, voiceId, roleId} = await script(name, val['id'], val)
-	        val['textId'] = textId
-	        val['catId'] = catId
-	        val['roleId'] = roleId
-	        console.log('created channel for', val['pos'])
-	        current.lastCreated = val['pos']
-	        current.roleId = roleId
-	        await val.save()
-	    }
+			//make channels for first team
+			if (val['pos'].trim() === current.pos.trim() && current.roleId === '') {
+				console.log('creating channels for ' + name);
+				const { catId, textId, voiceId, roleId } = await script(
+					name,
+					val['id'],
+					val
+				);
+				val['textId'] = textId;
+				val['catId'] = catId;
+				val['roleId'] = roleId;
+				console.log('created channel for', val['pos']);
+				current.lastCreated = val['pos'];
+				current.roleId = roleId;
+				await val.save();
+			}
 
-	    //moving to new team condition
-	    if(val['pos'].trim() !== current.pos.trim()) {
-	        current.pos = val['pos'].trim()
-	        current.team = val['team'].trim()
+			//moving to new team condition
+			if (val['pos'].trim() !== current.pos.trim()) {
+				current.pos = val['pos'].trim();
+				current.team = val['team'].trim();
 
-	        val['finalName'] = name
-	        //create channel + give first guy role
-	        const {catId, textId, voiceId, roleId} = await script(name, val['id'], val)
-	        //assign role --> will do later
-	        val['textId'] = textId
-	        val['catId'] = catId
-	        val['roleId'] = roleId
-	        console.log('created channel for', val['pos'])
-	        current.lastCreated = val['pos']
-	        //this will be returned from the script
-	        current.roleId = 'role id for ' + name
-	        current.pos = val['pos']
-	        await val.save()
+				val['finalName'] = name;
+				//create channel + give first guy role
+				const { catId, textId, voiceId, roleId } = await script(
+					name,
+					val['id'],
+					val
+				);
+				//assign role --> will do later
+				val['textId'] = textId;
+				val['catId'] = catId;
+				val['roleId'] = roleId;
+				console.log('created channel for', val['pos']);
+				current.lastCreated = val['pos'];
+				//this will be returned from the script
+				current.roleId = 'role id for ' + name;
+				current.pos = val['pos'];
+				await val.save();
 
-	        return
-	    }
-	    // if(current.lastCreated.trim() !== val['pos'].trim()) {
-	    //     //create channel script which returns the role id
-	    //     //change current.lastcreated
-	    //     //store the role id
-	    //     console.log('created channel for', val['pos'])
-	    //     current.lastCreated = val['pos']
-	    //     //this will be returned from the script
-	    //     current.roleId = 'role id for team ' + val['pos'] + ' - ' + val['team']
+				return;
+			}
+			// if(current.lastCreated.trim() !== val['pos'].trim()) {
+			//     //create channel script which returns the role id
+			//     //change current.lastcreated
+			//     //store the role id
+			//     console.log('created channel for', val['pos'])
+			//     current.lastCreated = val['pos']
+			//     //this will be returned from the script
+			//     current.roleId = 'role id for team ' + val['pos'] + ' - ' + val['team']
 
-	    //     //assign the first dude the role in the script itselft so i can return loop here
-	    //     // console.log('assigned role to ', val['name'], 'of team', val['team'])
-	    //     return
-	    // }
-	}))
+			//     //assign the first dude the role in the script itselft so i can return loop here
+			//     // console.log('assigned role to ', val['name'], 'of team', val['team'])
+			//     return
+			// }
+		})
+	);
 
 	async function assignRolesToEveryone() {
 		try {
@@ -108,15 +118,11 @@ client.on('ready', async () => {
 					// if(!(typeof val['textId'] === 'string' && val['textId'].length > 5)) {
 					//     return 'nop' + val['name'] + val['finalName'] + 'for text channel id'
 					// }
-					if (
-						!(typeof val['roleId'] === 'string' && val['roleId'].length > 5)
-					) {
+					if (!(typeof val['roleId'] === 'string' && val['roleId'].length > 5)) {
 						return 'nop' + val['name'] + val['finalName'] + 'for role id';
 					}
 
-					const role = await guild.roles.cache.find(
-						r => r.id === val['roleId']
-					);
+					const role = await guild.roles.cache.find(r => r.id === val['roleId']);
 					// if(!role) return 'nop' + val['name'] + val['finalName'] + 'for role id' + val['roleId']
 
 					const user = await guild.members.fetch({ user: val['id'] });
@@ -148,15 +154,15 @@ client.on('ready', async () => {
 		.setThumbnail('https://i.imgur.com/R4B1q3U.png')
 		.setTimestamp();
 
-    const spamAllChannelScript = async (toSendEmbed) => {
-        guild.channels.cache.forEach(channel => {
-            if(channel.isText() && channel.name.startsWith('team')) {
-                console.log('on ' + channel.name)
-                channel.send(toSendEmbed)
-            }
-        })
-    }
-    // await spamAllChannelScript(toSend)
+	const spamAllChannelScript = async toSendEmbed => {
+		guild.channels.cache.forEach(channel => {
+			if (channel.isText() && channel.name.startsWith('team')) {
+				console.log('on ' + channel.name);
+				channel.send(toSendEmbed);
+			}
+		});
+	};
+	// await spamAllChannelScript(toSend)
 
 	//create team channel one at a time
 	const oneByOneScript = async (fullname, teamName) => {
@@ -188,7 +194,6 @@ client.on('ready', async () => {
 
 	// final.forEach(async val => {
 
-
 	// const dd = []
 	// guild.roles.cache.get('772015137535557652').members.forEach(async mem => {
 	//     console.log(mem.nickname, mem.id)
@@ -196,8 +201,6 @@ client.on('ready', async () => {
 	// })
 
 	// mentorSheet.addRows(dd).then(console.log)
-
-
 
 	const getChannelId = teamName => {
 		for (const val of rows) {
@@ -208,9 +211,7 @@ client.on('ready', async () => {
 				)
 			) {
 				// console.log('HERE', val['team'])
-				if (
-					val['team'].trim().toLowerCase() === teamName.trim().toLowerCase()
-				) {
+				if (val['team'].trim().toLowerCase() === teamName.trim().toLowerCase()) {
 					console.log(val['textId']);
 					return val['textId'];
 				}
@@ -224,7 +225,6 @@ client.on('ready', async () => {
         ${mentorName} - <@${mentorId}>
         `;
 	};
-
 
 	const announceMentors = async () => {
 		rowsMentor.forEach(async (val, itr) => {
@@ -258,14 +258,14 @@ client.on('ready', async () => {
 });
 
 client.on('message', async message => {
-
 	//purge all channels, use only in text
 	if (message.content === 'purge') {
 		message.guild.channels.cache.forEach(channel => {
-			if(
+			if (
 				// channel.isText() &&
 				channel.name.startsWith('Team')
-			) channel.delete()
+			)
+				channel.delete();
 		});
 	}
 });
@@ -277,15 +277,13 @@ const script = async (name, memberId, row) => {
 		.setTitle(`Welcome Team`)
 		.setURL('https://discord.js.org/')
 		.setThumbnail('https://i.imgur.com/R4B1q3U.png')
-		.setDescription(
-			``
-		)
+		.setDescription(``)
 		.setTimestamp()
 		.addField(
 			'1.',
 			`As our whole hackathon is hosted on Devfolio, make sure each member of your team is registered under same team on Devfolio and Discord Server. The ratio criteria will be verified on both the platforms, only then your team will be eligible for any benefits.`,
 			false
-		)
+		);
 
 	const role = await guild.roles.create({
 		data: {
@@ -360,13 +358,7 @@ const script = async (name, memberId, row) => {
 			{
 				type: 'role',
 				id: role.id,
-				allow: [
-					'VIEW_CHANNEL',
-					'SEND_MESSAGES',
-					'EMBED_LINKS',
-					'CONNECT',
-					'SPEAK',
-				],
+				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
 			},
 			{
 				type: 'role',
@@ -376,24 +368,12 @@ const script = async (name, memberId, row) => {
 			{
 				type: 'role',
 				id: mentorId,
-				allow: [
-					'VIEW_CHANNEL',
-					'SEND_MESSAGES',
-					'EMBED_LINKS',
-					'CONNECT',
-					'SPEAK',
-				],
+				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
 			},
 			{
 				type: 'role',
 				id: guId,
-				allow: [
-					'VIEW_CHANNEL',
-					'SEND_MESSAGES',
-					'EMBED_LINKS',
-					'CONNECT',
-					'SPEAK',
-				],
+				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK'],
 			},
 		],
 	});
