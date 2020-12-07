@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  hack-discordbot:
+    image: hack-discordbot:latest
+    container_name: hack-discordbot
+    env_file: .env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - internal
+    restart: unless-stopped
+
+networks:
+  internal:
+    name: internal
+    driver: bridge
