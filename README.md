@@ -22,8 +22,8 @@ _Note_: replace `pnpm` with your preferred package manager like `npm` or `yarn`.
 pnpm install
 pnpm run dev
 ```
-OR
-[Docker Image](https://hub.docker.com/repository/docker/cjamie/hack-discordbot)
+OR    
+[Docker Image](https://hub.docker.com/repository/docker/cjamie/hack-discordbot)     
 Build and Run your local image using `docker-compose up`
 ### Configuration
 - Your database looks something like this:
