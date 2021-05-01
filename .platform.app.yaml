@@ -1,0 +1,20 @@
+name: hack-discordbot
+
+type: 'nodejs:14'
+
+disk: 128
+
+# mounts:
+#   'scs/base':
+#     source: local
+#     source_path: base
+#   'scs/ann':
+#     source: local
+#     source_path: ann
+#   'diff':
+#     source: local
+#     source_path: diff
+
+web:
+  commands: 
+    start: "node src/index.js"
