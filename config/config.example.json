@@ -1,0 +1,12 @@
+{
+    "spreadsheetId": "<database spreadsheet id",
+    "token": "<discord login token>",
+    "prefix": "!",
+    "emojiId": "",
+    "HackPendingRole": "Hacker(Under Review)",
+    "HackAcceptedRole": "Hacker(Eligible)",
+    "OrganiserRole": "Organiser",
+    "RegisterChannelId": "",
+    "RegisterChannelName": "✅-registration-check",
+    "MemeChannelName": "💥memes"
+}
