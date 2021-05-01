@@ -4,8 +4,8 @@
   "description": "An all in one discord bot for organising your hackathon.",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,14 @@
     "npm": "6.13.4"
   },
   "devDependencies": {
-    "eslint": "^7.13.0"
+    "husky": "^6.0.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "author": "DhairyaSethi",
   "license": "MIT",
