@@ -10,7 +10,7 @@ Features include
 ## Commands
 - `register` - gives HackPendingRole to participant and records their email and team name in the sheets db. Additional `unregister`, `update-team` for quality of life.
 - `meme-start/meme-stop` 
-    ![image alt](https://i.imgur.com/6Ng18pE.png "title" =525x327)
+<img src="https://i.imgur.com/P1McvJh.png" height="300px" alt="contest example">
 
 
 ## Setup
