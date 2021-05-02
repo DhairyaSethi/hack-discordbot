@@ -72,7 +72,7 @@ client.on('message', message => {
 	if (!command) return;
 
 	try {
-		command.exec(message, client);
+		command.exec(message, client, args);
 	} catch (error) {
 		console.error(error);
 		message.reply('unable to execute!');
