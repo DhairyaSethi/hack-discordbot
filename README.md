@@ -30,7 +30,7 @@ docker run -it cjamie/hack-discordbot /bin/ash #alpine image
 ```
 Configure your config.json/oauth.json file inside the shell session. See below for more details.
 
-Build and Run your local image using `docker-compose up`
+Build and Run your local image using `docker build -t hack .`
 
 ### Configuration
 - Your database looks something like this:
