@@ -15,6 +15,7 @@ Features include
 
 ## Setup
 ### Installation
+#### Local
 After cloning, use the following command to install all dependencies & run locally.
 _Note_: replace `pnpm` with your preferred package manager like `npm` or `yarn`.
 
@@ -22,9 +23,15 @@ _Note_: replace `pnpm` with your preferred package manager like `npm` or `yarn`.
 pnpm install
 pnpm run dev
 ```
-OR    
-[Docker Image](https://hub.docker.com/repository/docker/cjamie/hack-discordbot)     
+#### [Docker](https://hub.docker.com/repository/docker/cjamie/hack-discordbot)   
+```
+docker pull cjamie/hack-discordbot
+docker run -it cjamie/hack-discordbot /bin/ash #alpine image
+```
+Configure your config.json/oauth.json file inside the shell session. See below for more details.
+
 Build and Run your local image using `docker-compose up`
+
 ### Configuration
 - Your database looks something like this:
     ![Sheets DB](https://i.imgur.com/f0dSoOc.png "sheets")
